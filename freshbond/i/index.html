@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Davet · FreshBond</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header><a class="brand" href="../">FreshBond</a></header>
+<main>
+<h1>FreshBond'a davet edildin</h1>
+<p>Bir arkadaşın seninle FreshBond'da buluşmak istiyor.</p>
+<p id="open-row" hidden><a id="open" class="button" href="#">Uygulamada aç</a></p>
+<p><a class="button secondary" href="https://apps.apple.com/tr/app/id6815436215">App Store'dan indir</a></p>
+<section id="code-row" hidden>
+<p>Uygulamayı yükledikten sonra <strong>Arkadaş ekle → Davet kodu yapıştır</strong> alanına bu kodu yapıştır:</p>
+<p><code id="code"></code> <button id="copy" type="button">Kopyala</button></p>
+</section>
+<script>
+const token = decodeURIComponent(location.hash.slice(1)).trim().toLowerCase();
+const valid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(token);
+if (valid) {
+  document.getElementById('open').href = 'freshbond://invite/' + token;
+  document.getElementById('open-row').hidden = false;
+  document.getElementById('code').textContent = token;
+  document.getElementById('code-row').hidden = false;
+  const copy = document.getElementById('copy');
+  copy.addEventListener('click', () => {
+    navigator.clipboard.writeText(token).then(() => { copy.textContent = 'Kopyalandı'; }).catch(() => {});
+  });
+}
+</script>
+
+</main>
+<footer>
+<a href="../gizlilik/">Gizlilik</a> · <a href="../sozlesme/">Kullanıcı sözleşmesi</a> · <a href="../destek/">Destek</a>
+</footer>
+</body>
+</html>
